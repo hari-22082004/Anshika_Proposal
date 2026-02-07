@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Anshika ❤️</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #ff8fa3;
+            --bg: #0f050a;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: linear-gradient(135deg, #0f050a, #2a0a12);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Background Effects */
+        .heart-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: -1;
+        }
+        .heart-particle {
+            position: absolute; color: var(--primary);
+            animation: float 8s infinite linear; opacity: 0.4;
+        }
+        @keyframes float {
+            0% { transform: translateY(105vh) scale(0); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        /* Header UI */
+        .music-btn {
+            position: fixed; top: 20px; right: 20px; z-index: 100;
+            background: var(--glass); backdrop-filter: blur(10px);
+            border: 1px solid var(--border); padding: 10px 15px;
+            border-radius: 50px; cursor: pointer; font-size: 14px;
+        }
+
+        header {
+            height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive; font-size: clamp(3rem, 10vw, 5rem);
+            background: linear-gradient(to right, #ff4d6d, #fff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 10px; filter: drop-shadow(0 0 15px rgba(255, 77, 109, 0.5));
+        }
+
+        .hero-sub { font-size: 1.1rem; color: #ddd; margin-bottom: 30px; }
+
+        /* Timeline & Gallery Styling */
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .section-title {
+            text-align: center; font-family: 'Dancing Script', cursive;
+            font-size: 3rem; margin-bottom: 40px; color: var(--secondary);
+        }
+
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative; border-radius: 20px; overflow: hidden;
+            aspect-ratio: 4/5; border: 1px solid var(--border);
+            background: var(--glass);
+        }
+
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img { transform: scale(1.1); }
+
+        .caption {
+            position: absolute; bottom: 0; width: 100%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 15px; font-size: 0.9rem; text-align: center;
+        }
+
+        /* Video Section */
+        .video-wrapper {
+            width: 100%; max-width: 800px; margin: 0 auto;
+            border-radius: 25px; overflow: hidden;
+            border: 2px solid var(--primary); box-shadow: 0 0 30px rgba(255, 77, 109, 0.3);
+        }
+
+        /* Letter Box */
+        .letter-box {
+            background: var(--glass); backdrop-filter: blur(15px);
+            padding: 40px; border-radius: 25px; border: 1px solid var(--border);
+            line-height: 1.8; font-style: italic; font-size: 1.1rem;
+            text-align: center; margin: 40px 0;
+        }
+
+        /* Proposal Card */
+        .proposal-card {
+            background: rgba(20, 0, 5, 0.9); border: 2px solid var(--primary);
+            padding: 50px 20px; border-radius: 35px; text-align: center;
+            position: relative; overflow: hidden; margin-bottom: 100px;
+        }
+
+        .btn-prop {
+            padding: 15px 45px; border-radius: 50px; border: none;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer;
+            margin: 10px; transition: 0.3s;
+        }
+        .btn-yes { background: var(--primary); color: white; box-shadow: 0 0 20px var(--primary); }
+        .btn-no { background: #444; color: white; position: relative; }
+
+        footer { text-align: center; padding: 40px; opacity: 0.6; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+    <div class="heart-bg" id="heartBg"></div>
+    <audio id="bgMusic" loop><source src="music.mp3" type="audio/mp3"></audio>
+    <div class="music-btn" onclick="toggleMusic()">🎵 Play Music</div>
+
+    <header>
+        <h1 id="hero-name">Anshika 🫠</h1>
+        <div class="hero-sub">
+            <p>You Are My Forever ❤️</p>
+            <p style="margin-top:10px; font-size: 0.9rem;">Jab se tum meri life me aayi ho, sab kuch beautiful ho gaya hai...</p>
+        </div>
+        <a href="#gallery" style="text-decoration: none; color: white; background: var(--primary); padding: 12px 30px; border-radius: 30px; font-weight: 600;">Start Our Story 🌹</a>
+    </header>
+
+    <div class="container" id="gallery">
+        <h2 class="section-title">Our Memories ❤️</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="images/photo1.jpeg" alt="Anshika"><div class="caption">The first time I saw you ✨</div></div>
+            <div class="gallery-item"><img src="images/photo2.jpeg" alt="Anshika"><div class="caption">Your smile is my favorite 🌸</div></div>
+            <div class="gallery-item"><img src="images/photo3.jpeg" alt="Anshika"><div class="caption">Purest soul I know 💖</div></div>
+            <div class="gallery-item"><img src="images/photo4.jpeg" alt="Anshika"><div class="caption">Every moment is a gift 🎁</div></div>
+            <div class="gallery-item"><img src="images/photo5.jpeg" alt="Anshika"><div class="caption">I fell for you here ❤️</div></div>
+            <div class="gallery-item"><img src="images/photo6.jpeg" alt="Anshika"><div class="caption">Cute version of you 🫠</div></div>
+            <div class="gallery-item"><img src="images/photo7.jpeg" alt="Anshika"><div class="caption">My forever favorite 📸</div></div>
+            <div class="gallery-item"><img src="images/photo8.jpeg" alt="Anshika"><div class="caption">Love you to the moon ♾️</div></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title">A Message For You 🎥</h2>
+        <div class="video-wrapper">
+            <video controls style="width: 100%; display: block;">
+                <source src="assets/video.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="letter-box">
+            <p id="typewriter"></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="proposal-card">
+            <h2 style="font-family: 'Dancing Script'; font-size: 3rem; margin-bottom: 20px;">Will you be my wife? 💍</h2>
+            <p>Main tumse 2030 tak shaadi karna chahta hu…<br>Kya tum meri hamesha ke liye banogi? ❤️</p>
+            <div style="margin-top: 30px;">
+                <button class="btn-prop btn-yes" onclick="accepted()">YES! 💖</button>
+                <button class="btn-prop btn-no" id="noBtn" onmouseover="moveNo()" ontouchstart="moveNo()">No 🙈</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Made with infinite love for Anshika 🫠<br>By the one who wants forever with you 💖
+    </footer>
+
+    <script>
+        // Music logic
+        let playing = false;
+        const audio = document.getElementById('bgMusic');
+        function toggleMusic() {
+            if(!playing) { audio.play(); document.querySelector('.music-btn').innerText = "🎶 Music On"; }
+            else { audio.pause(); document.querySelector('.music-btn').innerText = "🎵 Music Off"; }
+            playing = !playing;
+        }
+
+        // Floating hearts
+        function createHeart() {
+            const h = document.createElement('div');
+            h.classList.add('heart-particle');
+            h.innerHTML = '❤️';
+            h.style.left = Math.random() * 100 + 'vw';
+            h.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            h.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            document.getElementById('heartBg').appendChild(h);
+            setTimeout(() => h.remove(), 8000);
+        }
+        setInterval(createHeart, 400);
+
+        // Typewriter
+        const text = "Anshika, tum meri aadat ban chuki ho... Tumhare bina din adhura lagta hai... Main har janam me tumhe hi choose karunga ❤️";
+        let idx = 0;
+        function type() {
+            if(idx < text.length) {
+                document.getElementById('typewriter').innerHTML += text.charAt(idx);
+                idx++; setTimeout(type, 70);
+            }
+        }
+        gsap.registerPlugin(ScrollTrigger);
+        ScrollTrigger.create({ trigger: ".letter-box", start: "top 80%", onEnter: type });
+
+        // No button move
+        function moveNo() {
+            const btn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            btn.style.position = 'fixed';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+            const phrases = ["Soch lo 😜", "Nahi na? 💔", "Ek baar aur socho 🙈", "Galat button! 😂"];
+            btn.innerText = phrases[Math.floor(Math.random() * phrases.length)];
+        }
+
+        // Yes button click
+        function accepted() {
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+            document.querySelector('.proposal-card').innerHTML = `
+                <h1 style="font-family:'Dancing Script'; color:var(--primary);">I Knew It! 😍</h1>
+                <p style="margin-top:20px; font-size:1.2rem;">You just made me the happiest person alive ❤️<br>See you in 2030, Mrs. Future!</p>
+                <div style="font-size:4rem; margin-top:20px;">💍✨🎆</div>
+            `;
+        }
+    </script>
+</body>
+</html>
